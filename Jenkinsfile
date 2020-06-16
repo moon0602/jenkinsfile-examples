@@ -2,13 +2,19 @@ node {
     try {
         notifyBuild('STARTED')
 
-        stage('Prepare code') {
-            echo 'do checkout stuff'
+        stage('Checkout'){
+            checkout scm
         }
 
         stage('Testing') {
-            echo 'Testing'
-            echo 'Testing - publish coverage results'
+            parallel (
+                'Testing01':{
+                    echo 'Testing01'
+                },
+                'Testing02':{
+                    echo 'Testing02'
+                }
+            )
         }
 
         stage('Staging') {
